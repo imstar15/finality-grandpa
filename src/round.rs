@@ -344,8 +344,6 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 
 		self.update();
 
-		print!("self.update");
-
 		import_result.equivocation = equivocation;
 		Ok(import_result)
 	}
@@ -511,6 +509,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 
 	// update the round-estimate and whether the round is completable.
 	fn update(&mut self) {
+		print!("self.update");
 		let threshold = self.threshold();
 
 		if self.prevote.current_weight < threshold {
