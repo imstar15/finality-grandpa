@@ -28,9 +28,6 @@ use crate::std::{
 	vec::Vec,
 };
 
-#[cfg(feature = "std")]
-use log::{trace, warn, debug};
-
 use crate::vote_graph::VoteGraph;
 use crate::voter_set::{VoterSet, VoterInfo};
 use crate::weights::{VoteWeight, VoterWeight};
@@ -80,7 +77,13 @@ pub(crate) struct AddVoteResult<'a, Vote, Signature> {
 	duplicated: bool,
 }
 
+#[cfg(feature = "std")]
+use log::{trace, warn, debug};
+
 impl<Id: Ord + Eq + Clone, Vote: Clone + Eq, Signature: Clone + Eq> VoteTracker<Id, Vote, Signature> {
+
+	
+
 	fn new() -> Self {
 		VoteTracker {
 			votes: BTreeMap::new(),
@@ -506,6 +509,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 	}
 
 	// update the round-estimate and whether the round is completable.
+	#[cfg_attr(not(feature = "std"), allow(unused))]
 	fn update(&mut self) {
 		debug!("self.update");
 		let threshold = self.threshold();
