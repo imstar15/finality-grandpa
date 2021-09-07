@@ -599,7 +599,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 			}
 		});
 
-		println!("self.completable");
+		debug!("self.completable");
 	}
 
 	/// Fetch the "round-estimate": the best block which might have been finalized
