@@ -507,7 +507,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 	}
 
 	// update the round-estimate and whether the round is completable.
-	fn update(&mut self) {
+	pub(crate) fn update(&mut self) {
 		let threshold = self.threshold();
 
 		if self.prevote.current_weight < threshold {
