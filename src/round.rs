@@ -21,6 +21,9 @@ use context::{Context, VoteNode, Vote};
 #[cfg(feature = "derive-codec")]
 use parity_scale_codec::{Encode, Decode};
 
+#[cfg(feature = "std")]
+use log::{trace, warn, debug};
+
 use crate::std::{
 	self,
 	collections::btree_map::{BTreeMap, Entry},
