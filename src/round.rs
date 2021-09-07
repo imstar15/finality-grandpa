@@ -18,13 +18,8 @@ mod context;
 
 use context::{Context, VoteNode, Vote};
 
-use futures::prelude::*;
-
 #[cfg(feature = "derive-codec")]
 use parity_scale_codec::{Encode, Decode};
-
-#[cfg(feature = "std")]
-use log::{trace, warn, debug};
 
 use crate::std::{
 	self,
@@ -32,6 +27,9 @@ use crate::std::{
 	fmt,
 	vec::Vec,
 };
+
+#[cfg(feature = "std")]
+use log::{trace, warn, debug};
 
 use crate::vote_graph::VoteGraph;
 use crate::voter_set::{VoterSet, VoterInfo};
@@ -509,7 +507,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 
 	// update the round-estimate and whether the round is completable.
 	fn update(&mut self) {
-		print!("self.update");
+		debug!("self.update");
 		let threshold = self.threshold();
 
 		if self.prevote.current_weight < threshold {
