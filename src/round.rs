@@ -31,7 +31,6 @@ use crate::std::{
 	collections::btree_map::{BTreeMap, Entry},
 	fmt,
 	vec::Vec,
-	println,
 };
 
 use crate::vote_graph::VoteGraph;
@@ -345,7 +344,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 
 		self.update();
 
-		println!("self.update");
+		print!("self.update");
 
 		import_result.equivocation = equivocation;
 		Ok(import_result)
