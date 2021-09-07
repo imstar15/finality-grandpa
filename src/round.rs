@@ -507,7 +507,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 	}
 
 	// update the round-estimate and whether the round is completable.
-	pub(crate) fn update(&mut self) {
+	fn update(&mut self) {
 		let threshold = self.threshold();
 
 		if self.prevote.current_weight < threshold {
@@ -600,7 +600,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 			}
 		});
 
-		println!("self.completable");
+		crate::std::println!("self.completable");
 	}
 
 	/// Fetch the "round-estimate": the best block which might have been finalized
