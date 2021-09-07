@@ -18,6 +18,8 @@ mod context;
 
 use context::{Context, VoteNode, Vote};
 
+use futures::prelude::*;
+
 #[cfg(feature = "derive-codec")]
 use parity_scale_codec::{Encode, Decode};
 
