@@ -33,8 +33,6 @@ use crate::std::{
 	vec::Vec,
 };
 
-use sp_runtime::print;
-
 use crate::vote_graph::VoteGraph;
 use crate::voter_set::{VoterSet, VoterInfo};
 use crate::weights::{VoteWeight, VoterWeight};
@@ -602,7 +600,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 			}
 		});
 
-		print("self.completable");
+		println!("self.completable");
 	}
 
 	/// Fetch the "round-estimate": the best block which might have been finalized
