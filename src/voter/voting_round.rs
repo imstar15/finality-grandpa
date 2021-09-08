@@ -183,6 +183,7 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 	/// Poll the round. When the round is completable and messages have been flushed, it will return `Poll::Ready` but
 	/// can continue to be polled.
 	pub(super) fn poll(&mut self, cx: &mut Context) -> Poll<Result<(), E::Error>> {
+		println("finality-grandpa poll!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 		trace!(target: "afg", "Polling round {}, state = {:?}, step = {:?}", self.votes.number(), self.votes.state(), self.state);
 
 		let pre_state = self.votes.state();
