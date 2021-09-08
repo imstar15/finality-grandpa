@@ -183,34 +183,49 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 	/// Poll the round. When the round is completable and messages have been flushed, it will return `Poll::Ready` but
 	/// can continue to be polled.
 	pub(super) fn poll(&mut self, cx: &mut Context) -> Poll<Result<(), E::Error>> {
-		println!("finality-grandpa poll!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		println!("finality-grandpa poll!");
 		trace!(target: "afg", "Polling round {}, state = {:?}, step = {:?}", self.votes.number(), self.votes.state(), self.state);
 
+		println!("finality-grandpa poll! 1111111");
 		let pre_state = self.votes.state();
 		self.process_incoming(cx)?;
+
+		println!("finality-grandpa poll! 222222222");
 
 		// we only cast votes when we have access to the previous round state.
 		// we might have started this round as a prospect "future" round to
 		// check whether the voter is lagging behind the current round.
+		println!("finality-grandpa poll! 3333333");
 		let last_round_state = self.last_round_state.as_ref().map(|s| s.get(cx).clone());
+		println!("finality-grandpa poll! 4444444");
 		if let Some(ref last_round_state) = last_round_state {
+			println!("finality-grandpa poll! 55555555");
 			self.primary_propose(last_round_state)?;
 			self.prevote(cx, last_round_state)?;
 			self.precommit(cx, last_round_state)?;
+			println!("finality-grandpa poll! 6666666");
 		}
+		println!("finality-grandpa poll! 7777777");
 
 		ready!(self.outgoing.poll(cx))?;
+		println!("finality-grandpa poll! 88888888");
 		self.process_incoming(cx)?; // in case we got a new message signed locally.
+		println!("finality-grandpa poll! 999999999");
 
 		// broadcast finality notifications after attempting to cast votes
 		let post_state = self.votes.state();
+		println!("finality-grandpa poll! aaaaaaaaaa");
 		self.notify(pre_state, post_state);
+		println!("finality-grandpa poll! bbbbbbbbbb");
 
 		// early exit if the current round is not completable
+		println!("finality-grandpa poll! cccccccccc");
 		if !self.votes.completable() {
+			println!("finality-grandpa poll! dddddddddd");
 			return Poll::Pending;
 		}
 
+		println!("finality-grandpa poll! eeeeeeeee");
 		// make sure that the previous round estimate has been finalized
 		let last_round_estimate_finalized = match last_round_state {
 			Some(RoundState {
@@ -218,6 +233,7 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 				finalized: Some((_, last_round_finalized)),
 				..
 			}) => {
+				println!("finality-grandpa poll! eeeeeeee");
 				// either it was already finalized in the previous round
 				let finalized_in_last_round = last_round_estimate <= last_round_finalized;
 
@@ -230,6 +246,7 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 				finalized_in_last_round || finalized_in_current_round
 			},
 			None => {
+				println!("finality-grandpa poll! fffffffff");
 				// NOTE: when we catch up to a round we complete the round
 				// without any last round state. in this case we already started
 				// a new round after we caught up so this guard is unneeded.
@@ -238,18 +255,24 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 			_ => false,
 		};
 
+		println!("finality-grandpa poll! ggggggggg");
+
 
 		// the previous round estimate must be finalized
 		if !last_round_estimate_finalized {
+			println!("finality-grandpa poll! hhhhhhhh");
 			trace!(target: "afg", "Round {} completable but estimate not finalized.", self.round_number());
 			self.log_participation(log::Level::Trace);
+			println!("finality-grandpa poll! iiiiiiii");
 			return Poll::Pending;
 		}
 
+		println!("finality-grandpa poll! jjjjjjjjjjj");
 		debug!(target: "afg", "Completed round {}, state = {:?}, step = {:?}",
 			self.votes.number(), self.votes.state(), self.state);
 
 		self.log_participation(log::Level::Debug);
+		println!("finality-grandpa poll! fffffffffff");
 
 		// both exit conditions verified, we can complete this round
 		Poll::Ready(Ok(()))
