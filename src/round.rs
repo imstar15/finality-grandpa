@@ -509,8 +509,9 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 	}
 
 	// update the round-estimate and whether the round is completable.
+	#[cfg(feature = "std")]
 	fn update(&mut self) {
-		debug!(target: "afg", "self.update");
+		println!("self.update");
 		let threshold = self.threshold();
 
 		if self.prevote.current_weight < threshold {
