@@ -34,7 +34,6 @@ extern crate alloc;
 #[cfg(feature = "std")]
 extern crate std;
 
-#[cfg(feature = "std")]
 pub mod round;
 pub mod vote_graph;
 pub mod voter_set;
@@ -79,7 +78,7 @@ use crate::std::vec::Vec;
 use crate::voter_set::VoterSet;
 #[cfg(feature = "derive-codec")]
 use parity_scale_codec::{Encode, Decode};
-use crate::round::ImportResult;
+use round::ImportResult;
 
 /// A prevote for a block and its ancestors.
 #[derive(Clone, Debug, PartialEq, Eq)]
