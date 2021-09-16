@@ -28,7 +28,7 @@ use log::{trace, warn, debug};
 /// The context of a `Round` in which vote weights are calculated.
 #[cfg_attr(any(feature = "std", test), derive(Debug))]
 #[cfg_attr(test, derive(Clone))]
-pub struct Context<T: Ord + Eq> {
+pub(super) struct Context<T: Ord + Eq> {
 	voters: VoterSet<T>,
 	equivocations: Bitfield,
 }
