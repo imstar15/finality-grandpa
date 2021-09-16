@@ -56,6 +56,7 @@ mod std {
 	pub use core::mem;
 	pub use core::num;
 	pub use core::ops;
+	pub use println;
 
 	pub mod vec {
 		pub use alloc::vec::Vec;
