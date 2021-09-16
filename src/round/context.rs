@@ -81,10 +81,6 @@ impl<T: Ord + Eq> Context<T> {
 			}
 		}
 	}
-
-	pub fn print() {
-		debug!("1231231231231231231231231231");
-	}
 }
 
 /// A single vote that can be incorporated into a `VoteNode`.
