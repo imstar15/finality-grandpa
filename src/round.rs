@@ -77,13 +77,7 @@ pub(crate) struct AddVoteResult<'a, Vote, Signature> {
 	duplicated: bool,
 }
 
-#[cfg(feature = "std")]
-use log::{trace, warn, debug};
-
 impl<Id: Ord + Eq + Clone, Vote: Clone + Eq, Signature: Clone + Eq> VoteTracker<Id, Vote, Signature> {
-
-	
-
 	fn new() -> Self {
 		VoteTracker {
 			votes: BTreeMap::new(),
@@ -509,7 +503,6 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 	}
 
 	// update the round-estimate and whether the round is completable.
-	#[cfg(feature = "std")]
 	fn update(&mut self) {
 		println!("self.update");
 		let threshold = self.threshold();
