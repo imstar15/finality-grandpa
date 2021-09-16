@@ -26,8 +26,10 @@ use crate::std::{
 	collections::btree_map::{BTreeMap, Entry},
 	fmt,
 	vec::Vec,
-	println,
 };
+
+#[cfg(feature = "std")]
+use log::{trace, warn, debug};
 
 use crate::vote_graph::VoteGraph;
 use crate::voter_set::{VoterSet, VoterInfo};
@@ -505,7 +507,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 
 	// update the round-estimate and whether the round is completable.
 	fn update(&mut self) {
-		println!("self.update");
+		debug("self.update");
 		let threshold = self.threshold();
 
 		if self.prevote.current_weight < threshold {
