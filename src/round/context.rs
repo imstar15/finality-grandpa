@@ -22,6 +22,9 @@ use crate::weights::VoteWeight;
 
 use super::Phase;
 
+#[cfg(feature = "std")]
+use log::{trace, warn, debug};
+
 /// The context of a `Round` in which vote weights are calculated.
 #[cfg_attr(any(feature = "std", test), derive(Debug))]
 #[cfg_attr(test, derive(Clone))]
