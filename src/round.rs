@@ -31,7 +31,6 @@ use crate::std::{
 use crate::vote_graph::VoteGraph;
 use crate::voter_set::{VoterSet, VoterInfo};
 use crate::weights::{VoteWeight, VoterWeight};
-use sp_runtime::print;
 
 use super::{Equivocation, Prevote, Precommit, Chain, BlockNumberOps, HistoricalVotes, Message, SignedMessage};
 
@@ -505,7 +504,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 
 	// update the round-estimate and whether the round is completable.
 	fn update(&mut self) {
-		print("self.update");
+		// print("self.update");
 		let threshold = self.threshold();
 
 		if self.prevote.current_weight < threshold {
