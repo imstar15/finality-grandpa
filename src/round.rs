@@ -28,8 +28,6 @@ use crate::std::{
 	vec::Vec,
 };
 
-use crate::std::println;
-
 use crate::vote_graph::VoteGraph;
 use crate::voter_set::{VoterSet, VoterInfo};
 use crate::weights::{VoteWeight, VoterWeight};
