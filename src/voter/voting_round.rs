@@ -186,13 +186,16 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 		trace!(target: "afg", "Polling round {}, state = {:?}, step = {:?}", self.votes.number(), self.votes.state(), self.state);
 
 		let pre_state = self.votes.state();
+		let pre_state2 = self.votes.state();
 		self.process_incoming(cx)?;
 
 		// we only cast votes when we have access to the previous round state.
 		// we might have started this round as a prospect "future" round to
 		// check whether the voter is lagging behind the current round.
+		log::info!("last_round_state pre");
 		let last_round_state = self.last_round_state.as_ref().map(|s| s.get(cx).clone());
 		if let Some(ref last_round_state) = last_round_state {
+			log::info!("last_round_state in");
 			self.primary_propose(last_round_state)?;
 			self.prevote(cx, last_round_state)?;
 			self.precommit(cx, last_round_state)?;
@@ -203,12 +206,19 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 
 		// broadcast finality notifications after attempting to cast votes
 		let post_state = self.votes.state();
+		let post_state2 = self.votes.state();
 		self.notify(pre_state, post_state);
+		
+		log::info!("pre_state: {:?}", pre_state2);
+		log::info!("post_state: {:?}", post_state2);
 
+		log::info!("!self.votes.completable pre");
 		// early exit if the current round is not completable
 		if !self.votes.completable() {
+			log::info!("!self.votes.completable in");
 			return Poll::Pending;
 		}
+		log::info!("!self.votes.completable after");
 
 		// make sure that the previous round estimate has been finalized
 		let last_round_estimate_finalized = match last_round_state {
