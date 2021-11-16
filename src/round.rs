@@ -506,11 +506,15 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 		let threshold = self.threshold();
 
 		if self.prevote.current_weight < threshold {
+			log::info!("Round::update!!!!!!!! return 1");
 			return
 		}
 
 		let (g_hash, g_num) = match self.prevote_ghost.clone() {
-			None => return,
+			None => {
+				log::info!("Round::update!!!!!!!! return 2");
+				return;
+			},
 			Some(x) => x,
 		};
 
@@ -560,9 +564,12 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 					+ remaining_commit_votes
 					+ possible_equivocations;
 
+				log::info!("Round::update!!!!!!!!, full_possible_weight >= threshold");
 				full_possible_weight >= threshold
 			}
 		};
+
+		log::info!("Round::update!!!!!!!! full_possible_weight >= threshold after");
 
 		// until we have threshold precommits, any new block could get supermajority
 		// precommits because there are at least f + 1 precommits remaining and then
@@ -582,6 +589,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 			);
 		} else {
 			self.estimate = Some((g_hash, g_num));
+			log::info!("Round::update!!!!!!!! return 3");
 			return;
 		}
 
