@@ -589,6 +589,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 		//
 		// the round-estimate is the highest block in the chain with head
 		// `prevote_ghost` that could have supermajority-commits.
+		log::info!("self.precommit.current_weight: {}", self.precommit.current_weight);
 		if self.precommit.current_weight >= threshold {
 			self.estimate = self.graph.find_ancestor(
 				g_hash.clone(),
