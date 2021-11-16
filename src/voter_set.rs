@@ -55,7 +55,7 @@ impl<Id: Eq + Ord> VoterSet<Id> {
 		Id: Ord + Clone,
 		I: IntoIterator<Item = (Id, u64)>
 	{
-		log::debug!("VoterSet::new");
+		log::info!("VoterSet::new");
 		let weights = weights.into_iter();
 
 		// Populate the voter set, thereby calculating the total weight.
@@ -67,7 +67,7 @@ impl<Id: Eq + Ord> VoterSet<Id> {
 				// for weight overflow (not just in debug mode). The protocol
 				// should never run with such voter sets.
 				total_weight = total_weight.checked_add(weight)?;
-				log::debug!("total_weight.checked_add, weight: {}", weight);
+				log::info!("total_weight.checked_add, weight: {}", weight);
 				match voters.entry(id) {
 					Entry::Vacant(e) => {
 						e.insert(VoterInfo {
@@ -99,7 +99,7 @@ impl<Id: Eq + Ord> VoterSet<Id> {
 		}
 
 		let threshold = threshold(total_weight);
-		log::debug!("threshold(total_weight): threshold: {}", threshold);
+		log::info!("threshold(total_weight): threshold: {}", threshold);
 
 		Some(VoterSet { voters, order, total_weight, threshold })
 	}
