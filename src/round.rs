@@ -502,6 +502,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 
 	// update the round-estimate and whether the round is completable.
 	fn update(&mut self) {
+		log::info!("Round::update!!!!!!!!");
 		let threshold = self.threshold();
 
 		if self.prevote.current_weight < threshold {
@@ -584,6 +585,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 			return;
 		}
 
+		log::info!("Round::update!!!!!!!! self.completable");
 		self.completable = self.estimate.clone().map_or(false, |(b_hash, b_num)| {
 			b_hash != g_hash || {
 				// round-estimate is the same as the prevote-ghost.
