@@ -505,6 +505,9 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 		log::info!("Round::update!!!!!!!!");
 		let threshold = self.threshold();
 
+		log::info!("self.prevote.current_weight: {}", self.prevote.current_weight);
+		log::info!("threshold: {}", threshold);
+		
 		if self.prevote.current_weight < threshold {
 			log::info!("Round::update!!!!!!!! return 1");
 			return
