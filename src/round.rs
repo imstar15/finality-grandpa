@@ -503,7 +503,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 	// update the round-estimate and whether the round is completable.
 	fn update(&mut self) {
 		log::info!("Round::update!!!!!!!!");
-		let threshold = self.threshold();
+		let threshold = VoteWeight(3); // self.threshold();
 
 		log::info!("self.prevote.current_weight: {}", self.prevote.current_weight);
 		log::info!("threshold: {}", threshold);
