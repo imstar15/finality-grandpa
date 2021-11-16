@@ -270,6 +270,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 		signer: Id,
 		signature: Signature,
 	) -> Result<ImportResult<Id, Prevote<H, N>, Signature>, crate::Error> {
+		log::info!("import_prevote");
 		let mut import_result = ImportResult::default();
 
 		let info = match self.context.voters().get(&signer) {
@@ -328,7 +329,8 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 		};
 
 		// update prevote-GHOST
-		let threshold = self.threshold();
+		// let threshold = self.threshold();
+		let threshold = VoteWeight(2);
 		if self.prevote.current_weight >= threshold {
 			self.prevote_ghost = self.graph.find_ghost(
 				self.prevote_ghost.take(),
