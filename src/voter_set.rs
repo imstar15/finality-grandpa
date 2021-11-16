@@ -67,7 +67,7 @@ impl<Id: Eq + Ord> VoterSet<Id> {
 				// for weight overflow (not just in debug mode). The protocol
 				// should never run with such voter sets.
 				total_weight = total_weight.checked_add(weight)?;
-				log::debug!("total_weight.checked_add, weight: {}", weight);
+				log::debug!("total_weight.checked_add, weight: {}", w);
 				match voters.entry(id) {
 					Entry::Vacant(e) => {
 						e.insert(VoterInfo {
