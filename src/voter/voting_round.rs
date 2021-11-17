@@ -116,6 +116,7 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 		finalized_sender: UnboundedSender<FinalizedNotification<H, N, E>>,
 		env: Arc<E>,
 	) -> VotingRound<H, N, E> {
+		log::info!("voting_round::new");
 		let round_data = env.round_data(round_number);
 		let round_params = crate::round::RoundParams {
 			voters,

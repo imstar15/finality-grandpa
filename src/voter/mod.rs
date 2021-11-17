@@ -535,6 +535,7 @@ impl<H, N, E: Environment<H, N>, GlobalIn, GlobalOut> Voter<H, N, E, GlobalIn, G
 		last_round_base: (H, N),
 		last_finalized: (H, N),
 	) -> Self {
+		log::info!("voter::new");
 		let (finalized_sender, finalized_notifications) = mpsc::unbounded();
 		let last_finalized_number = last_finalized.1;
 
