@@ -614,7 +614,7 @@ impl<H, N, E: Environment<H, N>, GlobalIn, GlobalOut> Voter<H, N, E, GlobalIn, G
 			inner.past_rounds.update_finalized(f_num);
 
 			if self.set_last_finalized_number(f_num) {
-				log::info("finality-grandpa self.env.finalize_block");
+				log::info!("finality-grandpa self.env.finalize_block");
 				self.env.finalize_block(f_hash.clone(), f_num, round, commit)?;
 			}
 
@@ -666,7 +666,7 @@ impl<H, N, E: Environment<H, N>, GlobalIn, GlobalOut> Voter<H, N, E, GlobalIn, G
 
 							if finalized_number > *last_finalized_number {
 								*last_finalized_number = finalized_number;
-								log::info("finality-grandpa self.env.finalize_block B");
+								log::info!("finality-grandpa self.env.finalize_block B");
 								self.env.finalize_block(finalized_hash, finalized_number, round_number, commit)?;
 							}
 
