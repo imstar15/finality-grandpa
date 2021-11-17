@@ -820,7 +820,7 @@ impl<H, N, E: Environment<H, N>, GlobalIn, GlobalOut> Voter<H, N, E, GlobalIn, G
 			*last_finalized_number = finalized_number;
 			return true;
 		}
-		false
+		true
 	}
 }
 
