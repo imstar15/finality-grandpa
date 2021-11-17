@@ -731,6 +731,7 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 						self.votes.number(),
 						commit.clone(),
 					);
+					log::debug!("self.finalized_sender.unbounded_send");
 					let _ = self.finalized_sender.unbounded_send(finalized);
 					self.best_finalized = Some(commit);
 				}
