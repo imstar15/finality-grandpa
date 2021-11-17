@@ -467,6 +467,7 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 		cx: &mut Context,
 		last_round_state: &RoundState<H, N>,
 	) -> Result<(), E::Error> {
+		log::debug!("prevote");
 		let state = self.state.take();
 
 		let start_prevoting = |
@@ -573,6 +574,7 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 		cx: &mut Context,
 		last_round_state: &RoundState<H, N>,
 	) -> Result<(), E::Error> {
+		log::debug!("precommit");
 		match self.state.take() {
 			Some(State::Prevoted(mut precommit_timer)) => {
 				let last_round_estimate = last_round_state.estimate.clone()
@@ -612,6 +614,7 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 
 	// construct a prevote message based on local state.
 	fn construct_prevote(&self, last_round_state: &RoundState<H, N>) -> (H, E::BestChain) {
+		log::debug!("construct_prevote");
 		let last_round_estimate = last_round_state
 			.estimate
 			.clone()
@@ -681,6 +684,7 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 
 	// construct a precommit message based on local state.
 	fn construct_precommit(&self) -> Precommit<H, N> {
+		log::debug!("construct_precommit");
 		let t = match self.votes.state().prevote_ghost {
 			Some(target) => target,
 			None => self.votes.base(),
