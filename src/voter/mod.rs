@@ -594,6 +594,8 @@ impl<H, N, E: Environment<H, N>, GlobalIn, GlobalOut> Voter<H, N, E, GlobalIn, G
 	}
 
 	fn prune_background_rounds(&mut self, cx: &mut Context) -> Result<(), E::Error> {
+		log::info!("finality-grandpa prune_background_rounds");
+		
 		{
 			let mut inner = self.inner.lock();
 
@@ -605,6 +607,7 @@ impl<H, N, E: Environment<H, N>, GlobalIn, GlobalOut> Voter<H, N, E, GlobalIn, G
 		}
 
 		while let Poll::Ready(res) = Stream::poll_next(Pin::new(&mut self.finalized_notifications), cx) {
+			log::info!("finality-grandpa Poll::Ready(res) = Stream::poll_next ");
 			let inner = self.inner.clone();
 			let mut inner = inner.lock();
 
