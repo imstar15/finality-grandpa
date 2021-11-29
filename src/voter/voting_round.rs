@@ -516,6 +516,7 @@ impl<H, N, E: Environment<H, N>> VotingRound<H, N, E> where
 			mut best_chain: E::BestChain,
 			cx: &mut Context,
 		| {
+			log::info!("finish_prevoting");
 			let best_chain = match best_chain.poll_unpin(cx) {
 				Poll::Ready(Err(e)) => return Err(e),
 				Poll::Ready(Ok(best_chain)) => best_chain,
