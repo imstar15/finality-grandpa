@@ -595,7 +595,7 @@ impl<H, N, E: Environment<H, N>, GlobalIn, GlobalOut> Voter<H, N, E, GlobalIn, G
 	}
 
 	fn prune_background_rounds(&mut self, cx: &mut Context) -> Result<(), E::Error> {
-		log::info!("finality-grandpa prune_background_rounds");
+		// log::info!("finality-grandpa prune_background_rounds");
 		
 		{
 			let mut inner = self.inner.lock();
