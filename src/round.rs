@@ -329,8 +329,8 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 		};
 
 		// update prevote-GHOST
-		// let threshold = self.threshold();
-		let threshold = VoteWeight(2);
+		let threshold = self.threshold();
+		// let threshold = VoteWeight(2);
 		if self.prevote.current_weight >= threshold {
 			self.prevote_ghost = self.graph.find_ghost(
 				self.prevote_ghost.take(),
@@ -505,7 +505,8 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 	// update the round-estimate and whether the round is completable.
 	fn update(&mut self) {
 		log::info!("Round::update!!!!!!!!");
-		let threshold = VoteWeight(2); // self.threshold();
+		let threshold = self.threshold();
+		// let threshold = VoteWeight(2);
 
 		log::info!("self.prevote.current_weight: {}", self.prevote.current_weight);
 		log::info!("threshold: {}", threshold);
@@ -528,12 +529,14 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 		// anything new finalized? finalized blocks are those which have both
 		// 2/3+ prevote and precommit weight.
 		let current_precommits = self.precommit.current_weight;
+		log::info!("Round::update!!!!!!!! current_precommits: {}, self.threshold(): {}", current_precommits, self.threshold());
 		if current_precommits >= self.threshold() {
 			self.finalized = self.graph.find_ancestor(
 				g_hash.clone(),
 				g_num,
 				|v| ctx.weight(v, Phase::Precommit) >= threshold,
 			);
+			log::info!("Round::update!!!!!!!! self.finalized: {:?}", self.finalized);
 		};
 
 		// figuring out whether a block can still be committed for is
