@@ -173,7 +173,7 @@ impl VoterInfo {
 fn threshold(total_weight: VoterWeight) -> VoterWeight {
 	// let faulty = total_weight.get().saturating_sub(1) / 3;
 	// VoterWeight::new(total_weight.get() - faulty).expect("subtrahend > minuend; qed")
-	VoterWeight(3u)
+	VoterWeight(NonZeroU64::new(3u64).unwrap())
 }
 
 #[cfg(test)]
