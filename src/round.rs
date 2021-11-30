@@ -536,7 +536,7 @@ impl<Id, H, N, Signature> Round<Id, H, N, Signature> where
 				g_num,
 				|v| ctx.weight(v, Phase::Precommit) >= threshold,
 			);
-			log::info!("Round::update!!!!!!!! self.finalized: {:?}", self.finalized);
+			log::info!("Round::update!!!!!!!! self.state: {:?}", self.state());
 		};
 
 		// figuring out whether a block can still be committed for is
