@@ -171,8 +171,9 @@ impl VoterInfo {
 
 /// Compute the threshold weight given the total voting weight.
 fn threshold(total_weight: VoterWeight) -> VoterWeight {
-	let faulty = total_weight.get().saturating_sub(1) / 3;
-	VoterWeight::new(total_weight.get() - faulty).expect("subtrahend > minuend; qed")
+	// let faulty = total_weight.get().saturating_sub(1) / 3;
+	// VoterWeight::new(total_weight.get() - faulty).expect("subtrahend > minuend; qed")
+	VoterWeight(2);
 }
 
 #[cfg(test)]
